@@ -173,14 +173,14 @@
           tableData: [],
           tableDataMany:[],
           theItem:'',
-          myPrizeUrl:'http://127.0.0.1/nefu/Search/person_to_prize',
-          getThreeUrl:'http://127.0.0.1/nefu/Search/three_link',
-          getProfissionUrl:'http://127.0.0.1/nefu/Search/get_profession',
-          getClassUrl:'http://127.0.0.1/nefu/Search/get_class_by_pid_grade',
-          getAllCollege:'http://127.0.0.1/nefu/Search/get_all_college',
-          getCollege:'http://127.0.0.1/nefu/Search/get_college',
-          getPrizePerson:'http://127.0.0.1/nefu/Search/prize_to_person',
-          toExcelUrl:'http://127.0.0.1/nefu/Search/to_excel',
+          myPrizeUrl:'http://222.27.161.5/nefu/Common/person_to_prize',
+          getThreeUrl:'http://222.27.161.5/nefu/Common/three_link',
+          getProfissionUrl:'http://222.27.161.5/nefu/Common/get_profession',
+          getClassUrl:'http://222.27.161.5/nefu/Common/get_class_by_pid_grade',
+          getAllCollege:'http://222.27.161.5/nefu/Common/get_all_college',
+          getCollege:'http://222.27.161.5/nefu/Common/get_college',
+          getPrizePerson:'http://222.27.161.5/nefu/Common/prize_to_person',
+          toExcelUrl:'http://222.27.161.5/nefu/Common/to_excel',
           activeName: 'second',
     				sNumber:'',
             sName:'',
@@ -312,13 +312,16 @@
         obj.value = this.$cookie.get('grade');
         obj.label = this.$cookie.get('grade');
         this.optionsY[0] = obj;
-        Axios.get(this.getCollege,{params:{
-          college:this.$cookie.get('college_id')}})
+        Axios.get(this.getCollege)
           .then((res)=>{
-            var obj = new Object();
-            obj.value = this.$cookie.get('college_id');
-            obj.label = res.data[0].name;
-            this.optionsCo[0] = obj;
+        		var x = [];
+            for(var i = 0;i<res.data.length;i++){
+              var obj = new Object();
+              obj.value = res.data[i].c_id;
+              obj.label = res.data[i].name;
+              x[i] = obj;
+            }
+            this.optionsCo = x;
           });
       }else{
         var date=new Date;
@@ -346,10 +349,22 @@
       }
     },
     watch:{
-        valueM:function(val){
+        valueY:function(val){
+          var arr = new Array(8);
+          var grade = parseInt(val);
+          arr[0] = {'value': grade + '年秋期','label':grade + '年秋期'}
+          arr[1] = {'value': grade + 1+ '年春期','label':grade + 1+ '年春期'}
+          arr[2] = {'value': grade + 1+ '年秋期','label':grade + 1+ '年秋期'}
+          arr[3] = {'value': grade + 2+ '年春期','label':grade + 2+ '年春期'}
+          arr[4] = {'value': grade + 2+ '年秋期','label':grade + 2+ '年秋期'}
+          arr[5] = {'value': grade + 3+ '年春期','label':grade + 3+ '年春期'}
+          arr[6] = {'value': grade + 3+ '年秋期','label':grade + 3+ '年秋期'}
+          arr[7] = {'value':  grade + 4 + '年春期','label': grade + 4 + '年春期'}
+          this.optionsl = arr;
 
+          console.log(this.valueM);
           Axios.get(this.getClassUrl,{params:{
-            pid:val,grade:this.$cookie.get('grade')}})
+            grade:val,pid:this.valueM}})
             .then((res)=>{
           		console.log(res.data);
               var x = [];
@@ -378,19 +393,6 @@
               }
               this.optionsM = x;
             });
-        },
-        valueY:function(val){
-          var arr = new Array(8);
-          var grade = parseInt(val);
-          arr[0] = {'value': grade + '年秋期','label':grade + '年秋期'}
-          arr[1] = {'value': grade + 1+ '年春期','label':grade + 1+ '年春期'}
-          arr[2] = {'value': grade + 1+ '年秋期','label':grade + 1+ '年秋期'}
-          arr[3] = {'value': grade + 2+ '年春期','label':grade + 2+ '年春期'}
-          arr[4] = {'value': grade + 2+ '年秋期','label':grade + 2+ '年秋期'}
-          arr[5] = {'value': grade + 3+ '年春期','label':grade + 3+ '年春期'}
-          arr[6] = {'value': grade + 3+ '年秋期','label':grade + 3+ '年秋期'}
-          arr[7] = {'value':  grade + 4 + '年春期','label': grade + 4 + '年春期'}
-          this.optionsl = arr;
         },
         sNumber:function(val){
         		if(val.length >=4){

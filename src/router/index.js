@@ -7,11 +7,18 @@ import Personas from '@/components/student/Personas'
 import Input_item from '@/components/student/Input_item'
 import Item_info from '@/components/student/Item_info'
 import Class_info from '@/components/student/Class_info'
+import Grade_man from '@/components/student/Grade_man'
+import Grade_input from '@/components/student/Grade_input'
+import Grade_see from '@/components/student/Grade_see'
+
 import stu_center from '@/components/student/personal_center/stu_center'
 import face from '@/components/student/personal_center/face'
 import password from '@/components/student/personal_center/password'
 import log from '@/components/student/personal_center/log'
 import my_message from '@/components/student/personal_center/my_message'
+import S_literature from '@/components/student/literature/S_literature'
+import S_w_query from '@/components/student/literature/S_w_query'
+import S_w_input from '@/components/student/literature/S_w_input'
 
 import Admin from '@/components/admin/Admin'
 import Student from '@/components/admin/Student'
@@ -24,6 +31,7 @@ import Prize_info from '@/components/admin/prize_info'
 import Admin_log from '@/components/admin/Admin_log'
 import Stu_log from '@/components/admin/Stu_log'
 import Get_prize from '@/components/admin/get_prize'
+import Grade_check from '@/components/admin/Grade_check'
 
 import a_center from '@/components/admin/personal_center/Admin_center'
 import a_password from '@/components/admin/personal_center/password'
@@ -49,7 +57,21 @@ export default new Router({
       children:[
         {path:'/student/personas',component:Personas},
         {path:'/student/input_item',component:Input_item},
-
+        {path:'/student/grade_man',component:Grade_man,
+        redirect:'/student/grade_man/grade_input',
+          children:[
+            {path:'/student/grade_man',component:Grade_input},
+            {path:'/student/grade_man/grade_input',component:Grade_input},
+            {path:'/student/grade_man/grade_see',component:Grade_see}
+          ]
+      },
+      {path:'/student/literature',component:S_literature,
+      redirect:'/student/literature/S_w_query',
+      children:[
+        {path:'/student/literature/S_w_query',component:S_w_query},
+        {path:'/student/literature/S_w_input',component:S_w_input}
+      ]
+    },            
         {path:'/student/class_info',component:Class_info},
         {path:'/student/stu_center',component:stu_center,
           children:[
@@ -73,6 +95,7 @@ export default new Router({
         {path:"/admin/college_admin", component:College_admin},
         {path:"/admin/item", component:Item},
         {path:"/admin/check", component:Check},
+        {path:"/admin/grade_check",component:Grade_check},
         {path:"/admin/prize_info", component:Prize_info},
         {path:"/admin/admin_log", component:Admin_log},
         {path:"/admin/stu_log", component:Stu_log},

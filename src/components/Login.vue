@@ -44,8 +44,8 @@ export default {
           num:'',
           psd:''
         },
-        s_url:'http://127.0.0.1/nefu/Student/student_login',
-        a_url:'http://127.0.0.1/nefu/Admin/admin_login',
+        s_url:'http://222.27.161.5/nefu/Student/student_login',
+        a_url:'http://222.27.161.5/nefu/Admin/admin_login',
         logining:false
       };
     },
@@ -74,9 +74,11 @@ export default {
                   message: '密码错误',
                   type: 'warning'
               });
-            }else{
+            }else{     
+                    console.log(res.data);
               this.logining = false;
               this.$cookie.set('s_id',res.data.s_id,1);
+              this.$cookie.set('s_num',res.data.s_num,1);
               this.$cookie.set('s_name',res.data.s_name,1);
               this.$cookie.set('class_id',res.data.class_id,1);
               this.$cookie.set('is_monitor',res.data.is_monitor,1);
@@ -84,6 +86,7 @@ export default {
               this.$cookie.set('college_id',res.data.college_id,1);
               this.$cookie.set('s_grade',res.data.grade,1);
               this.$router.push("/student");
+              console.log(this.$cookie);
             }
           });
       },

@@ -81,7 +81,7 @@ export default {
       return {
          activeIndex: '1',
          a:true,
-         s_url:'http://127.0.0.1/nefu/Student/',
+         s_url:'http://222.27.161.5/nefu/Student/',
          basicInformation:{
          	s_name:'姓名',
          	s_num:'学号',

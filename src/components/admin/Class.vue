@@ -98,8 +98,8 @@ export default {
         classname:'',
         selectprofession:''
       },
-      c_url:'http://127.0.0.1/nefu/Common/',
-      a_url:'http://127.0.0.1/nefu/Admin/add_class',
+      c_url:'http://222.27.161.5/nefu/Common/',
+      a_url:'http://222.27.161.5/nefu/Admin/add_class',
       // class:[],
       classlistshow:[],
       currentPage: 1,

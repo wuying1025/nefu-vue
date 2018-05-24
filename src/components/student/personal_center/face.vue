@@ -5,7 +5,7 @@
     <el-col :span="4" >
       <el-upload
         class="avatar-uploader"
-        action="http://127.0.0.1/nefu/student/do_upload"
+        action="http://222.27.161.5/nefu/student/do_upload"
         name="userfile"
         :data="stu"
         :show-file-list="true"

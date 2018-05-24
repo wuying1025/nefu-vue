@@ -25,6 +25,9 @@
 	  </el-submenu>
 	   <el-menu-item index="2"  @click='Item' v-if='genre'>奖项管理</el-menu-item>
      <el-menu-item index="8" v-if='genre'  @click='getSearch'>查询获奖</el-menu-item>
+		 <router-link to='/admin/grade_check'>
+		 		<el-menu-item index="9">成绩管理</el-menu-item>
+		 </router-link>
 	  <el-submenu index="1"  v-if='genre'>
 		   	<template slot="title">
 		   	基础信息管理

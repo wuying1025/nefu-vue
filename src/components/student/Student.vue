@@ -18,6 +18,11 @@
 	  <el-menu-item index="1" @click='personas'>个人画像</el-menu-item>
 	  <el-menu-item index="3" @click='input_item' v-if='isMonitor'>录入信息</el-menu-item>
 	  <el-menu-item index="4" @click='class_info' v-if='isMonitor'>查看录入</el-menu-item>
+	  <el-submenu index="5">
+		 <template slot="title">成绩管理</template>
+		 <el-menu-item index="5-1" @click='grade_man'>德育管理</el-menu-item>
+	     <el-menu-item index="5-2" @click='literary_form'>文体管理</el-menu-item>
+	  </el-submenu>
 	</el-menu>
 	<el-button type='warning' @click='openMessageBox' class='message'>留<br /><br />言</el-button>
 	
@@ -41,7 +46,7 @@ export default {
       return {
          activeIndex: '1',
          studentName:'',
-         url:'http://127.0.0.1/nefu/Student/',
+         url:'http://222.27.161.5/nefu/Student/',
          isMonitor:false,
          face_img:'',
          messageBox:false,
@@ -98,6 +103,12 @@ export default {
 	     class_info:function(){
 			this.$router.push('/student/class_info');
 	     },
+		 grade_man:function(){
+			 this.$router.push('/student/grade_man');
+		 },
+		 literary_form:function(){
+			 this.$router.push('/student/literature');
+		 },
 		openMessageBox:function(){
 			this.messageBox = true;
 			this.messageContent = '';
