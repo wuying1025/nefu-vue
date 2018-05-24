@@ -173,8 +173,8 @@
         options:[],
         //add_time:{year:new Date(),term:"秋期"},
         short_time:{year:new Date(),term:"春期"},
-        messageAdd:'http://222.27.161.5/nefu/Student/set_add_deyu',
-        messageShort:'http://222.27.161.5/nefu/Student/set_min_deyu',
+        messageAdd:'http://127.0.0.1/nefu/Student/set_add_deyu',
+        messageShort:'http://127.0.0.1/nefu/Student/set_min_deyu',
         tableData3: [{
          content:'政治上要求进步，以实际行动积极向党组织靠拢，加1分；获得党校培训《结业证书》并积极参加相关活动者，加2分 ',
           reason:'',

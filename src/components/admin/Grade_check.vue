@@ -537,17 +537,17 @@ export default {
           isMyTable:'false',
           isShow:'false',
           isSafe:'true',
-          getProfissionUrl:'http://222.27.161.5/nefu/Common/get_profession',
-          getClassUrl:'http://222.27.161.5/nefu/Common/get_class_by_pid_grade',
-          getAllCollege:'http://222.27.161.5/nefu/Common/get_all_college',
-           getCollege:'http://222.27.161.5/nefu/Common/get_college',
-           getNameUrl:'http://222.27.161.5/nefu/Common/get_student_by_class_id',   //得到每个人的名字
-           checkAdd:'http://222.27.161.5/nefu/Admin/reset_add_deyu',
-           checkShort:'http://222.27.161.5/nefu/Admin/reset_short_deyu',
-           research:'http://222.27.161.5/nefu/Admin/adm_get_wenti',//文体搜索
-           checkUpdate:'http://222.27.161.5/nefu/Admin/reset_wenti',//文体的审核分审核人
+          getProfissionUrl:'http://127.0.0.1/nefu/Common/get_profession',
+          getClassUrl:'http://127.0.0.1/nefu/Common/get_class_by_pid_grade',
+          getAllCollege:'http://127.0.0.1/nefu/Common/get_all_college',
+           getCollege:'http://127.0.0.1/nefu/Common/get_college',
+           getNameUrl:'http://127.0.0.1/nefu/Common/get_student_by_class_id',   //得到每个人的名字
+           checkAdd:'http://127.0.0.1/nefu/Admin/reset_add_deyu',
+           checkShort:'http://127.0.0.1/nefu/Admin/reset_short_deyu',
+           research:'http://127.0.0.1/nefu/Admin/adm_get_wenti',//文体搜索
+           checkUpdate:'http://127.0.0.1/nefu/Admin/reset_wenti',//文体的审核分审核人
           
-          getClassSearch:'http://222.27.161.5/nefu/Admin/adm_get_deyu',  //全班搜索
+          getClassSearch:'http://127.0.0.1/nefu/Admin/adm_get_deyu',  //全班搜索
           tableData:[],
           tableData3: [{
           content:'政治上要求进步，以实际行动积极向党组织靠拢，加1分；获得党校培训《结业证书》并积极参加相关活动者，加2分 ',

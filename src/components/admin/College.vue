@@ -81,8 +81,8 @@ export default {
          selectcollege:''
       },
       activeName: 'first',
-      a_url:'http://222.27.161.5/nefu/Admin/',
-      c_url:'http://222.27.161.5/nefu/Common/get_college'
+      a_url:'http://127.0.0.1/nefu/Admin/',
+      c_url:'http://127.0.0.1/nefu/Common/get_college'
       }
     },
     mounted:function(){

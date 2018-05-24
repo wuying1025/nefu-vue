@@ -122,8 +122,8 @@ export default {
             college:[],
             profession:[],
             selectcollege:'',
-            c_url:'http://222.27.161.5/nefu/Common/',
-            swi_url:'http://222.27.161.5/nefu/Student/set_wenti',            
+            c_url:'http://127.0.0.1/nefu/Common/',
+            swi_url:'http://127.0.0.1/nefu/Student/set_wenti',
             }
         },
     methods: {

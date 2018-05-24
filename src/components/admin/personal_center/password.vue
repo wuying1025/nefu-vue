@@ -55,7 +55,7 @@
     methods: {
       checkOld:function () {
         this.pwd.oldIcon = 'el-icon-loading';
-        Axios.get('http://222.27.161.5/nefu/Admin/check_pwd',{params:{a_id:this.$cookie.get('a_id'),pwd:this.pwd.old}})
+        Axios.get('http://127.0.0.1/nefu/Admin/check_pwd',{params:{a_id:this.$cookie.get('a_id'),pwd:this.pwd.old}})
           .then((res)=>{
             if(res.data=='success'){
               this.pwd.oldIcon = 'el-icon-check';
@@ -87,7 +87,7 @@
               this.checkRule.isShow3 = true
             }else{
               this.checkRule.isShow3 = false;
-              Axios.post('http://222.27.161.5/nefu/Admin/update_password',qs.stringify({
+              Axios.post('http://127.0.0.1/nefu/Admin/update_password',qs.stringify({
                 a_id:this.$cookie.get('a_id'),pwd:this.pwd.new2
               })).then((res)=>{
                   if(res.data=='success'){

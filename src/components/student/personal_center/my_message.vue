@@ -47,7 +47,7 @@
   export default {
     data() {
       return {
-        c_url:'http://222.27.161.5/nefu/Common/',
+        c_url:'http://127.0.0.1/nefu/Common/',
         messageList:[],
         replylist:[],
         activeName: 'first',

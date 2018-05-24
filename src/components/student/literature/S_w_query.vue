@@ -93,8 +93,8 @@ export default {
           year:'',
           month:'',
           form:{},
-          ws_url:'http://222.27.161.5/nefu/Student/get_self_wenti',
-          wc_url:'http://222.27.161.5/nefu/Student/get_class_wenti',
+          ws_url:'http://127.0.0.1/nefu/Student/get_self_wenti',
+          wc_url:'http://127.0.0.1/nefu/Student/get_class_wenti',
           table:[],             
           option:"",        
   }

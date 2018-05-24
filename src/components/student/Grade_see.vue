@@ -208,9 +208,9 @@ export default {
         tableData:[],
         optionsl:[],
         options:[],
-        getClassGrade:'http://222.27.161.5/nefu/Student/get_class_deyu',
-        getNowGrade:'http://222.27.161.5/nefu/Student/cur_term_deyu',
-        getMyGrade:'http://222.27.161.5/nefu/Student/get_self_deyu',
+        getClassGrade:'http://127.0.0.1/nefu/Student/get_class_deyu',
+        getNowGrade:'http://127.0.0.1/nefu/Student/cur_term_deyu',
+        getMyGrade:'http://127.0.0.1/nefu/Student/get_self_deyu',
         toExcelUrlB:'',
         toExcelUrl:'',
         grade:'',
@@ -523,7 +523,7 @@ export default {
           //console.log(this.$http);
 
             
-              Axios.get('http://222.27.161.5/nefu/Student/get_self_deyu',{params:{s_num:this.$cookie.get('s_num'),get_term:this.value5,
+              Axios.get('http://127.0.0.1/nefu/Student/get_self_deyu',{params:{s_num:this.$cookie.get('s_num'),get_term:this.value5,
               month:this.value4
               }}).then((res)=>{
               //  console.log(res.data.constructor);
@@ -617,7 +617,7 @@ export default {
         this.options[11]={'value':month+11,'label':month+11+'月'};
         //获取当前成绩
         console.log(this.$cookie.get('s_num'));
-       Axios.get('http://222.27.161.5/nefu/Student/cur_term_deyu',{params:{s_num:this.$cookie.get('s_num')}}).then((res)=>{
+       Axios.get('http://127.0.0.1/nefu/Student/cur_term_deyu',{params:{s_num:this.$cookie.get('s_num')}}).then((res)=>{
           this.grade=res.data;
        });
   }

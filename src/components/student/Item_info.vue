@@ -31,7 +31,7 @@ import Axios from "axios"
 export default {
     data () {
         return {
-            url:'http://222.27.161.5/nefu/Student/',
+            url:'http://127.0.0.1/nefu/Student/',
             itemList:[],
             showContent:''
         };

@@ -44,8 +44,8 @@ export default {
           num:'',
           psd:''
         },
-        s_url:'http://222.27.161.5/nefu/Student/student_login',
-        a_url:'http://222.27.161.5/nefu/Admin/admin_login',
+        s_url:'http://127.0.0.1/nefu/Student/student_login',
+        a_url:'http://127.0.0.1/nefu/Admin/admin_login',
         logining:false
       };
     },

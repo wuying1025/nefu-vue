@@ -103,8 +103,8 @@ export default {
          name:''
       },
       activeName: 'first',
-      c_url:'http://222.27.161.5/nefu/Common/',
-      a_url:'http://222.27.161.5/nefu/Admin/'
+      c_url:'http://127.0.0.1/nefu/Common/',
+      a_url:'http://127.0.0.1/nefu/Admin/'
       }
     },
     mounted:function(){
