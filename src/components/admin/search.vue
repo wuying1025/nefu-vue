@@ -19,9 +19,10 @@
               <br>
               <br>
               <el-button type="primary" @click="getMyPrize">确认搜索</el-button>
-              <el-button type="primary" @click="toExcel"><a :href="toExcelUrlA">转EXCEL</a></el-button>
+              <el-button type="primary" @click="toExcel">转EXCEL</el-button>
               <div class="block">
               <el-table
+                      id="person"
                 :data="tableData"
                 border
                 style="width: 100%">
@@ -111,7 +112,7 @@
               <br>
               <br>
               <el-button type="primary"  @click="getPrizeToPerson">确认搜索</el-button>
-              <el-button type="primary" @click="toExcelLong"><a :href="toExcelUrlB">转EXCEL</a></el-button>
+              <el-button type="primary" @click="toExcelLong">转EXCEL</el-button>
               <div class="block">
               <el-table
                 :data="tableDataMany"
@@ -161,6 +162,8 @@
 
 <script>
   import Axios from "axios"
+  import FileSaver from 'file-saver'
+  import XLSX from 'xlsx'
   export default {
     name: 'search',
     data () {
@@ -202,6 +205,16 @@
         }
     },
     methods: {
+        toExcel(){
+          /* generate workbook object from table */
+            var wb = XLSX.utils.table_to_book(document.querySelector('#person'))
+          /* get binary string as output */
+            var wbout = XLSX.write(wb, { bookType: 'xlsx', bookSST: true, type: 'array' })
+            try {
+                FileSaver.saveAs(new Blob([wbout], { type: 'application/octet-stream' }), '获奖名单.xlsx')
+            } catch (e) { if (typeof console !== 'undefined') console.log(e, wbout) }
+            return wbout
+        },
       handleClick(tab, event) {
         // console.log(tab, event);
       },
@@ -256,16 +269,6 @@
         }
 
         this.toExcelUrlB = this.toExcelUrl + '?arr=' + JSON.stringify(x);
-      },
-      toExcel(){
-        var x = [];
-        x = this.tableData;
-        var y = {s_name:'姓名',s_num:'学号',get_time:'所获奖项',name:'获奖日期'}
-        if(this.excelString == false){
-          x.unshift(y)
-          this.excelString = true
-        }
-        this.toExcelUrlA = this.toExcelUrl + '?arr=' + JSON.stringify(x);
       }
     },
     mounted () {

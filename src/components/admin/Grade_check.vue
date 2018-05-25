@@ -74,7 +74,7 @@
               <br>
               <br>
               <el-button type="primary" @click="getMyPrize">确认搜索</el-button>
-              <el-button type="primary" @click="toExcel" v-show="excel"><a :href="toExcelUrlA">转EXCEL</a></el-button>
+              <el-button type="primary" @click="toExcel" v-show="excel">转EXCEL</el-button>
               
               <div class="block">
               <el-table
@@ -310,7 +310,7 @@
               </div>
 
               <div class="block">
-                <el-table
+                <el-table  id="my-table"
               :data="tableData"
               class="table"
               v-show="isShow"
@@ -505,6 +505,8 @@
 </template>
 <script>
 import Axios from "axios"
+import FileSaver from 'file-saver'
+import XLSX from 'xlsx'
 export default {
     data(){
         return{
@@ -1156,7 +1158,7 @@ export default {
         valueC:function(val){
           console.log(this.$cookie.get('class_id'));
            Axios.get(this.getNameUrl,{params:{
-            pid:val}})
+            class_id:val}})
             .then((res)=>{
           		console.log(res.data);
               var x = [];
@@ -1202,6 +1204,16 @@ export default {
        
      },
      methods:{
+         toExcel(){
+             /* generate workbook object from table */
+             var wb = XLSX.utils.table_to_book(document.querySelector('#my-table'))
+             /* get binary string as output */
+             var wbout = XLSX.write(wb, { bookType: 'xlsx', bookSST: true, type: 'array' })
+             try {
+                 FileSaver.saveAs(new Blob([wbout], { type: 'application/octet-stream' }), 'sheetjs.xlsx')
+             } catch (e) { if (typeof console !== 'undefined') console.log(e, wbout) }
+             return wbout
+         },
        getMyPrize(){
          //普通管理员搜索
         if(this.$cookie.get('genre')!=1){
