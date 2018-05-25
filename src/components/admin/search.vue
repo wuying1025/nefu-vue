@@ -41,7 +41,7 @@
                   width="250px">
                 </el-table-column>
                 <el-table-column
-                  prop="name"
+                  prop="i_name"
                   label="所获奖项"
                   width="250px">
                 </el-table-column>
@@ -174,7 +174,7 @@
           tableDataMany:[],
           theItem:'',
           myPrizeUrl:'http://127.0.0.1/nefu/Common/person_to_prize',
-          getThreeUrl:'http://127.0.0.1/nefu/Common/three_link',
+          getThreeUrl:'http://127.0.0.1/nefu/Common/get_third_items',
           getProfissionUrl:'http://127.0.0.1/nefu/Common/get_profession',
           getClassUrl:'http://127.0.0.1/nefu/Common/get_class_by_pid_grade',
           getAllCollege:'http://127.0.0.1/nefu/Common/get_all_college',
@@ -203,7 +203,7 @@
     },
     methods: {
       handleClick(tab, event) {
-        console.log(tab, event);
+        // console.log(tab, event);
       },
       handleChange(value) {
         console.log(value);
@@ -217,9 +217,9 @@
             //console.log(JSON.stringify(this.tableData))
             var x = [];
             x = this.tableData;
-            var y = {s_name:'姓名',s_num:'学号',get_time:'获奖日期',name:'所获奖项'}
+            var y = {s_name:'姓名',s_num:'学号',get_time:'获奖日期',i_name:'所获奖项'}
             x.unshift(y)
-            console.log(JSON.stringify(x));
+            // console.log(JSON.stringify(x));
           });
 
 
@@ -271,7 +271,13 @@
         .then((res)=>{
           var x = res.data
 
-          this.options = x;
+          x.forEach(element => {
+              this.options.push({
+                value: element.id,
+                label: element.name
+              });
+          });
+          // this.options = x;
         });
 
 
@@ -332,7 +338,7 @@
         this.optionsY[3] = {'value':year - 3,'label':year - 3};
 
 
-        console.log(year);
+        // console.log(year);
         Axios.get(this.getAllCollege)
           .then((res)=>{
         		var x = [];
