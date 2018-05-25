@@ -115,6 +115,7 @@
               <el-button type="primary" @click="toExcelLong">转EXCEL</el-button>
               <div class="block">
               <el-table
+                      id="prize"
                 :data="tableDataMany"
                 border
                 style="width: 100%">
@@ -258,17 +259,14 @@
           });
       },
       toExcelLong(){
-
-        var x = [];
-        x = this.tableDataMany;
-        var y = {s_name:'姓名',s_num:'学号',get_time:'所获奖项',name:'获奖日期'}
-
-        if(this.excelString == false){
-          x.unshift(y)
-          this.excelString = true
-        }
-
-        this.toExcelUrlB = this.toExcelUrl + '?arr=' + JSON.stringify(x);
+        /* generate workbook object from table */
+          var wb = XLSX.utils.table_to_book(document.querySelector('#prize'))
+        /* get binary string as output */
+          var wbout = XLSX.write(wb, { bookType: 'xlsx', bookSST: true, type: 'array' })
+          try {
+              FileSaver.saveAs(new Blob([wbout], { type: 'application/octet-stream' }), '获奖人.xlsx')
+          } catch (e) { if (typeof console !== 'undefined') console.log(e, wbout) }
+          return wbout
       }
     },
     mounted () {
