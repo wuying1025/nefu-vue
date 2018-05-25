@@ -118,7 +118,7 @@
                 border
                 style="width: 100%">
                 <el-table-column
-                  prop="name"
+                  prop="u_name"
                   label="姓名"
                   width="250px">
                 </el-table-column>
@@ -128,12 +128,12 @@
                   width="250px">
                 </el-table-column>
                 <el-table-column
-                  prop="prize"
+                  prop="i_name"
                   label="所获奖项"
                   width="250px">
                 </el-table-column>
                 <el-table-column
-                  prop="time"
+                  prop="get_time"
                   label="获奖时间"
                   width="250px">
                 </el-table-column>
@@ -218,7 +218,7 @@
             var x = [];
             x = this.tableData;
             var y = {s_name:'姓名',s_num:'学号',get_time:'获奖日期',i_name:'所获奖项'}
-            x.unshift(y)
+            x.unshift(y);
             // console.log(JSON.stringify(x));
           });
 
@@ -235,9 +235,13 @@
             term:this.valueT
         		}})
           .then((res)=>{
-        		console.log(this.valueCo,this.valueY,this.valueM,this.valueC,this.theItem,this.valueT)
+        		// console.log(this.valueCo,this.valueY,this.valueM,this.valueC,this.theItem,this.valueT)
             this.tableDataMany = res.data;
-            console.log(res.data);
+            // var x = [];
+            // x = this.tableData;
+            // var y = {s_name:'姓名',s_num:'学号',get_time:'获奖日期',i_name:'所获奖项'}
+            // x.unshift(y);
+            // console.log(res.data);
           });
       },
       toExcelLong(){
