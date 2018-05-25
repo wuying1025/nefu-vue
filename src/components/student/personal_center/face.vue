@@ -6,7 +6,7 @@
       <el-upload
         class="avatar-uploader"
         action="http://127.0.0.1/nefu/student/do_upload"
-        name="userfile"
+        name="file"
         :data="stu"
         :show-file-list="true"
         :on-success="handleAvatarSuccess"
