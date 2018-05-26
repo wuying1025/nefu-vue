@@ -184,7 +184,7 @@
         </el-table>
         
         <div v-if="termGrade" class="content">
-            您本学期的总分为：<div v-text="nowNum"></div>
+            您的学期的总分为：<div v-text="nowNum"></div>
         </div>
 
          </el-col>
@@ -483,7 +483,7 @@ export default {
   methods:{
       //查看全班成绩
         firstClick(){
-          
+          this.termGrade=false;
             this.isMyTable=false;
             this.isTable=true;
             Axios.get(this.getClassGrade,{params:{
@@ -505,36 +505,18 @@ export default {
         },
         //查看自己的成绩
         youClick(){
-          console.log(Axios);
-            if(this.value5 && this.add_time.term && !this.value4){
-                 this.isMyTable=false;
-                 this.termGrade=true;
-             //不选月份的时候发送请求得到所选当前的学期的总分
-            //  Axios.get(this.ontermGrade,{params:{
-            //    get_term:this.value5+'年'+this.add_time.term
-            //  }}).then((res)=>{
-            //     this.nowNum=res.data;
-            //  });
-            }else{ this.isMyTable=true;
-                    this.termGrade=false;
-             }
-           //console.log(Axios['get']);
-
-          //console.log(this.$http);
-
+          console.log(Axios);          
             
               Axios.get('http://127.0.0.1/nefu/Student/get_self_deyu',{params:{s_num:this.$cookie.get('s_num'),get_term:this.value5,
               month:this.value4
               }}).then((res)=>{
-              //  console.log(res.data.constructor);
-              // if(this.tableData3[0].content.trim()==res.data[0].d_content.trim())
-              // { console.log(true);
-              // }else{
-              //   console.log(false);
-              // }
+
                    console.log(this.tableData3[0].content);
                    console.log(res.data[0].d_content);  
                if(res.data.constructor == Array){
+                 this.isMyTable=true;
+                  this.termGrade=false;
+                   this.isTable=false;
                    for(var i=0;i<this.tableData3.length;i++){                   
                      for(var j=0;j<res.data.length;j++){
                       
@@ -560,6 +542,9 @@ export default {
                 }
 
                }else{
+                  this.isMyTable=false;
+                 this.termGrade=true;
+                 this.isTable=false;
                   this.nowNum=res.data;
                }
                

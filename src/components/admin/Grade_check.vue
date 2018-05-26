@@ -539,6 +539,11 @@ export default {
           isMyTable:'false',
           isShow:'false',
           isSafe:'true',
+          i_num:'',   //用于记录查询的学号
+          i_select:'',//标志位加分
+          i_downSelect:'',//标志位减分
+          i_stu:true, //是否发送请求的标志位
+         // i_cum:[],  //建立一个数组储存id
           getProfissionUrl:'http://127.0.0.1/nefu/Common/get_profession',
           getClassUrl:'http://127.0.0.1/nefu/Common/get_class_by_pid_grade',
           getAllCollege:'http://127.0.0.1/nefu/Common/get_all_college',
@@ -1299,8 +1304,11 @@ export default {
               }else{
                 this.isShow=false;
                 this.isTable=true;
-                this.safe=true;
-                  console.log(res.data);
+                this.safe=true; 
+                this.i_num=res.data[0].s_num;              
+              this.i_select=res.data[0].d_sta;
+                //this.i_downSelect=res.data[0].d_sta;
+                 console.log(this.i_select);
              for(var i=0;i<this.tableData3.length;i++){                   
                      for(var j=0;j<res.data.length;j++){                  
                     if(this.tableData3[i].content.trim()==res.data[j].d_content.trim()){
@@ -1308,6 +1316,7 @@ export default {
                       this.tableData3[i].reason=res.data[j].d_why;
                       console.log(111);
                       this.tableData3[i].grade=res.data[j].d_self;
+                      
                       //后端要把审核分和审核人拼接到数组中，用JSON传过来
                     }else{
                       // console.log(res.data[j].d_content);
@@ -1319,6 +1328,7 @@ export default {
                     if(this.tableData2[i].content.trim()==res.data[j].d_content.trim()){
                       this.tableData2[i].reason=res.data[j].d_why;
                       this.tableData2[i].grade=res.data[j].d_self;
+                        
                       //后端要把审核分和审核人拼接到数组中，用JSON传过来
                     }
                   }
@@ -1334,6 +1344,10 @@ export default {
         }       
        },
        getSafe(){
+          console.log(this.i_select);
+          if(this.i_select==2){
+            alert("已经审核过了！");
+          }else{
           var num=new Array();
           for(var i=0;i<this.tableData3.length;i++){
              if(this.tableData3[i].check!='' && this.tableData3[i].person!=''){
@@ -1341,7 +1355,7 @@ export default {
                this.tableData3[i].get_term=this.valueT;
                this.tableData3[i].month=this.value;
                this.tableData3[i].d_tag=1;
-               this.tableData3[i].s_num=this.$cookie.get('s_num');
+               this.tableData3[i].s_num=this.i_num;
                 num.push(this.tableData3[i]);
                
              }
@@ -1351,29 +1365,47 @@ export default {
             Axios.get(this.checkAdd,{params:{pim:bim}
             
             }).then((res)=>{
-             console.log(res);
+              alert('保存成功');
+              this.i_select=2;
+             console.log(i_select);
             });
+          }
        },
        getDownSafe(){
+         console.log(this.i_select);
+         if(this.i_downSelect==2){
+           alert('已经审核过了');
+         }else{
            var num1=new Array();
            for(var i=0;i<this.tableData2.length;i++){
-             if(this.tableData2[i].check!='' && this.tableData2[i].person!=''){
+             
+              if(parseInt(this.tableData2[i].check)>=0){
+                 alert('请输入小于0的数');
+                 this.tableData2[i].check='';
+                 this.i_stu=false;
+               }else if(this.tableData2[i].check!='' && this.tableData2[i].person!=''){              
                this.tableData2[i].index=i;
                this.tableData2[i].get_term=this.valueT;
                this.tableData2[i].month=this.value;
                this.tableData2[i].d_tag=2;
-               this.tableData2[i].s_num=this.$cookie.get('s_num');
+               this.tableData2[i].s_num=this.i_num;
                 num1.push(this.tableData2[i]);
-               
-             }
+                this.i_stu=true;
+             
+           }
           }
          var cim=num1;
             console.log(cim);
+            if(this.i_stu==true){
             Axios.get(this.checkShort,{params:{pim:cim}
             
             }).then((res)=>{
+              alert('保存成功');
+              this.i_downSelect=2;
              console.log(res);
             });
+            }
+         }
        },//文体搜索
        search(){
          if(this.$cookie.get('genre')!=1){  
@@ -1442,6 +1474,7 @@ export default {
                 this.classgrade=false;
                 this.show2=true;                
                 this.table=res.data;
+                
                 for(var i=0;i<res.data.length;i++){
                 this.table[i].class=res.data[i].class_name;
                 this.table[i].name=res.data[i].s_name;
@@ -1451,6 +1484,7 @@ export default {
                 this.table[i].affair=res.data[i].w_why;
                 this.table[i].remark=res.data[i].w_type;
                 this.table[i].mark=res.data[i].w_self;
+                this.table[i].imi=res.data[i].w_id;
                 this.count++;
                 
                 }
@@ -1472,6 +1506,7 @@ export default {
                this.table[i].s_num=this.$cookie.get('s_num');
                  this.table[i].w_who=this.table[i].person;
                   this.table[i].w_cfm=this.table[i].check;
+                 
                 num2.push(this.table[i]);
                
              }
@@ -1483,6 +1518,7 @@ export default {
             Axios.get(this.checkUpdate,{params:{pim:bim}
 
             }).then((res)=>{
+              alert('保存成功');
              console.log(res);
             });
        }

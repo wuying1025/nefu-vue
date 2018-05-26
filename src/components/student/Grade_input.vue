@@ -171,6 +171,7 @@
         valueY:'待审核',     //审核状态 减分
         optionsl:[],
         options:[],
+        i_stud:true,   //标志位
         //add_time:{year:new Date(),term:"秋期"},
         short_time:{year:new Date(),term:"春期"},
         messageAdd:'http://127.0.0.1/nefu/Student/set_add_deyu',
@@ -423,27 +424,34 @@
         }, 
         //减分提交
         shortClick(){
-          this.valueY='正在审核';
+        
             var num1=new Array();
            for(var i=0;i<this.tableData2.length;i++){
-             if(this.tableData2[i].reason!=''){
+             if(parseInt(this.tableData2[i].grade)>=0){
+                 alert('请输入小于0的数');
+                 this.tableData2[i].grade='';
+                 this.i_stud=false;
+               }else if(this.tableData2[i].reason!=''){             
                this.tableData2[i].index=i;
                this.tableData2[i].get_term=this.value6;
                this.tableData2[i].month=this.value7;
                this.tableData2[i].d_tag=2;
                this.tableData2[i].s_num=this.$cookie.get('s_num');
                 num1.push(this.tableData2[i]);
+               this.i_stud=true;
                     }
            }
           //  var cim=JSON.stringify(num1);
             var cim=num1;
             console.log(cim);
+            if(this.i_stud==true){
+                this.valueY='正在审核';
             Axios.get(this.messageShort,{params:{pim:cim}
             
             }).then((res)=>{
               // if(res.data=='success')
               //  { this.valueY='已审核';}
-            });
+            });}
         }      
     }
   };
