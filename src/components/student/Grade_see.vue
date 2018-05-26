@@ -38,7 +38,7 @@
                 <el-col :span="20">
                     <el-button type="primary" @click="youClick">查看</el-button>
                     <el-button type="primary" plain @click="firstClick"  v-if="isMonitor">全班成绩</el-button>
-                    <el-button type="primary" @click="toExcelLong"><a :href="toExcelUrlB" v-if="isMonitor">转EXCEL</a></el-button>
+                    <el-button type="primary" @click="toExcelLong">转EXCEL</el-button>
                 </el-col>   
                 </el-row>
              </div>
@@ -46,6 +46,7 @@
         </div>
         
         <el-table
+                id="classall"
             :data="tableData3"
             height="260"
             v-show="isMyTable"
@@ -192,7 +193,8 @@
 </template>
 <script>
 import Axios from "axios";
-
+import FileSaver from 'file-saver'
+import XLSX from 'xlsx'
 //Vue.prototype.Axios = Axios;
 export default {
   data(){
@@ -558,17 +560,15 @@ export default {
             console.log(row);
         },
         toExcelLong(){
-
-        var x = [];
-        x = this.tableData;
-        var y = {class_name:'班级',s_num:'学号',s_name:'姓名',d_num:'总分'}
-
-        if(this.excelString == false){
-          x.unshift(y)
-          this.excelString = true
-        }
-
-        this.toExcelUrlB = this.toExcelUrl + '?arr=' + JSON.stringify(x);
+//
+            /* generate workbook object from table */
+            var wb = XLSX.utils.table_to_book(document.querySelector('#classall'))
+            /* get binary string as output */
+            var wbout = XLSX.write(wb, { bookType: 'xlsx', bookSST: true, type: 'array' })
+            try {
+                FileSaver.saveAs(new Blob([wbout], { type: 'application/octet-stream' }), '全班成绩.xlsx')
+            } catch (e) { if (typeof console !== 'undefined') console.log(e, wbout) }
+            return wbout
       }
   },
   mounted(){   
