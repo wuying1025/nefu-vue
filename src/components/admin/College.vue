@@ -38,11 +38,21 @@
       </el-form>
       </el-col>
     </el-tab-pane>
-    <el-tab-pane label="查看" name="third">
+    <el-tab-pane label="查看" name="third" @click="getCollege">
+        <el-row :gutter="20" class="mb-20">
+        <el-col :span="20" :offset="6">
+          <el-button type="primary" @click="onDelColl">删除选中</el-button>
+        </el-col>
+        </el-row>
         <el-col :span='12' :offset='6'>
           <el-table
             :data="college" 
+            @selection-change="handleSelectionChange"
             >
+            <el-table-column
+              type="selection"
+              width="55" >
+            </el-table-column>
             <el-table-column
               prop="c_id"
               label="专业id"
@@ -75,6 +85,7 @@ export default {
       return {
       college:[],
       collegeAndPrefirem:[],
+      multipleSelection:[],
       form:{
          collegename: '',
          proname:'',
@@ -82,7 +93,8 @@ export default {
       },
       activeName: 'first',
       a_url:'http://127.0.0.1/nefu/Admin/',
-      c_url:'http://127.0.0.1/nefu/Common/get_college'
+      c_url:'http://127.0.0.1/nefu/Common/get_college',
+      n_url:'http://127.0.0.1/nefu/',
       }
     },
     mounted:function(){
@@ -124,7 +136,37 @@ export default {
               console.log('录入失败');
             }
        });
-      }
+      },
+      //删除信息
+      onDelColl(){
+        var delIds = [];
+        for(var i=0;i<this.multipleSelection.length;i++){
+          delIds.push(this.multipleSelection[i].c_id);
+        }
+        if(delIds.length > 0){
+          this.$confirm('确认删除？')
+            .then(_ => {
+
+              Axios.get(this.n_url+'admin/del_college',{params:{
+                delId:delIds
+              }})
+                .then((res)=>{
+                  this.getCollege();
+                });
+            })
+            .catch(_ => {});
+        }else{
+          this.$message({
+            type: 'error',
+            showClose: true,
+            message: '请选择'
+          });
+        }
+      },
+      //获取多选框选中列表
+      handleSelectionChange(val) {
+        this.multipleSelection = val;
+      },
     }
 }
 </script>

@@ -5,9 +5,19 @@
   <el-col :offset='3' :span='18'>
   <el-tabs v-model="activeName" >
     <el-tab-pane label="管理员列表" name="first">
+        <el-row :gutter="20" class="mb-20">
+          <el-col :span="20">
+            <el-button type="primary" @click="onDelAdmin">删除选中</el-button>
+          </el-col>
+        </el-row>
           <el-table
             :data="admin"
+            @selection-change="handleSelectionChange"
             >
+            <el-table-column
+              type="selection"
+              width="55" >
+            </el-table-column>
             <el-table-column
               prop="name"
               label="名称"
@@ -95,6 +105,7 @@ export default {
       return {
       admin:[],
       college:[],
+      multipleSelection:[],
       grade:new Date(),
       form:{
          account:'',
@@ -104,7 +115,8 @@ export default {
       },
       activeName: 'first',
       c_url:'http://127.0.0.1/nefu/Common/',
-      a_url:'http://127.0.0.1/nefu/Admin/'
+      a_url:'http://127.0.0.1/nefu/Admin/',
+      n_url:'http://127.0.0.1/nefu/',
       }
     },
     mounted:function(){
@@ -170,6 +182,37 @@ export default {
         }).catch(() => {
         });
        
+      },
+      //获取多选框选中列表
+      handleSelectionChange(val) {
+        this.multipleSelection = val;
+        console.log(this.multipleSelection)
+      },
+      onDelAdmin(){
+        var delIds = [];
+        for(var i=0;i<this.multipleSelection.length;i++){
+          delIds.push(this.multipleSelection[i].a_id);
+        }
+        console.log(delIds);
+        if(delIds.length > 0){
+          this.$confirm('确认删除？')
+            .then(_ => {
+
+              Axios.get(this.n_url+'admin/del_admin',{params:{
+                delId:delIds
+              }})
+                .then((res)=>{
+                  this.getAdmin();
+                });
+            })
+            .catch(_ => {});
+        }else{
+          this.$message({
+            type: 'error',
+            showClose: true,
+            message: '请选择删除项'
+          });
+        }
       }
     }
 }

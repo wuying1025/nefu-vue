@@ -43,8 +43,18 @@
         </el-form>
     </el-tab-pane>
     <el-tab-pane label="查看班级" name="second" >
+      <el-row :gutter="20" class="mb-20">
+      <el-col :span="20" :offset="2">
+         <el-button type="primary" @click="onDelClass">删除选中</el-button>
+      </el-col>
+      </el-row>
+      <el-row :gutter="20">
     <el-col :span="20" :offset="2">
-         <el-table :data="classlistshow" >
+         <el-table :data="classlistshow" @selection-change="handleSelectionChange">
+           <el-table-column
+              type="selection"
+              width="55" >
+            </el-table-column>
             <el-table-column
               prop="grade"
               label="年级"
@@ -62,6 +72,7 @@
             </el-table-column>
         </el-table>
         </el-col>
+        </el-row>
          <el-col>
         <div class="block" >
           <!-- <span class="demonstration">大于 7 页时的效果</span> -->
@@ -100,13 +111,15 @@ export default {
       },
       c_url:'http://127.0.0.1/nefu/Common/',
       a_url:'http://127.0.0.1/nefu/Admin/add_class',
+      n_url:'http://127.0.0.1/',
       // class:[],
       classlistshow:[],
       currentPage: 1,
       pageSize:10,
       classlistlen:1,
       startsize:0,
-      endsize:9
+      endsize:9,
+      multipleSelection:[]
       }
     },
     watch: {
@@ -117,8 +130,8 @@ export default {
     },
     mounted:function(){
       if(this.$cookie.get('genre')!=1){
-          this.$router.push('/admin');
-        }
+        this.$router.push('/admin');
+      }
        this.getCollege();
         Axios.get(this.c_url+'get_all_class')
             .then((res)=>{
@@ -172,6 +185,36 @@ export default {
         this.endsize=this.endsize>this.classlist.length?this.classlist.length:this.endsize;
         this.classlistshow=this.classlist.slice(this.startsize,this.endsize);
       },
+      //删除信息
+      onDelClass(){
+        var delIds = [];
+        for(var i=0;i<this.multipleSelection.length;i++){
+          delIds.push(this.multipleSelection[i].id);
+        }
+        if(delIds.length > 0){
+          this.$confirm('确认删除？')
+            .then(_ => {
+
+              Axios.get(this.n_url+'nefu/admin/del_class',{params:{
+                delId:delIds
+              }})
+                .then((res)=>{
+                  this.allClass();
+                });
+            })
+            .catch(_ => {});
+        }else{
+          this.$message({
+            type: 'error',
+            showClose: true,
+            message: '请选择班级'
+          });
+        }
+      },
+      //获取多选框选中列表
+      handleSelectionChange(val) {
+        this.multipleSelection = val;
+      },
     }
 }
 </script>
@@ -179,6 +222,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 
 <style scoped>
+  
   .class .el-table{
    overflow: hidden;
  }
@@ -211,4 +255,5 @@ export default {
  .class .el-form-item>div{
   width: 217px;
  }
+ 
 </style>

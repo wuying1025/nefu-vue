@@ -83,6 +83,44 @@
                     </el-form-item>
                 </el-col>
               </el-row>
+
+              <el-row>
+                <el-col :span="8">
+                    <el-form-item label="民族">
+                      <el-input v-model="form.national"></el-input>
+                    </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                    <el-form-item label="户口性质">
+                      <el-input v-model="form.household"></el-input>
+                    </el-form-item>
+                </el-col>
+              </el-row>
+              <el-row>
+                <el-col :span="8">
+                    <el-form-item label="政治面貌">
+                      <el-input v-model="form.political"></el-input>
+                    </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                    <el-form-item label="寝室号">
+                      <el-input v-model="form.dormitory"></el-input>
+                    </el-form-item>
+                </el-col>
+              </el-row>
+              <el-row>
+                <el-col :span="8">
+                    <el-form-item label="家庭经济困难等级">
+                      <el-input v-model="form.difficulties"></el-input>
+                    </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                    <el-form-item label="助学贷款情况">
+                      <el-input v-model="form.loans"></el-input>
+                    </el-form-item>
+                </el-col>
+              </el-row>
+
               <el-row>
                 <el-col :offset="5">
                 <el-form-item >
@@ -168,9 +206,44 @@
               </el-table-column>
 
               <el-table-column
+                fixed
                 prop="s_num"
-                label="学号">
+                label="学号"
+                width="200">
               </el-table-column>
+
+              <el-table-column
+                  prop="national"
+                  label="民族"
+                  width="100">
+                </el-table-column>
+                <el-table-column
+                  prop="household"
+                  label="户口性质"
+                  width="100">
+                </el-table-column>
+                <el-table-column
+                  prop="political"
+                  label="政治面貌"
+                  width="100">
+                </el-table-column>
+                <el-table-column
+                  prop="dormitory"
+                  label="寝室号"
+                  width="100">
+                </el-table-column>
+                <el-table-column
+                  prop="loans"
+                  label="助学贷款情况"
+                  width="100">
+                </el-table-column>
+
+                <el-table-column
+                  prop="difficulties"
+                  label="家庭经济困难等级"
+                  width="100">
+                </el-table-column>
+
               <el-table-column
                 prop="grade"
                 label="年级"
@@ -179,7 +252,7 @@
               <el-table-column
                 prop="s_name"
                 label="姓名"
-                width="120">
+                width="150">
               </el-table-column>
               <el-table-column
                 prop="sex"
@@ -221,14 +294,44 @@
                 :data="search_student"
                 width='100%'>
                 <el-table-column
+                  fixed
                   prop="s_num"
-                  label="学号">
+                  label="学号"
+                  width="200">
+                </el-table-column>
+
+                <el-table-column
+                  prop="national"
+                  label="民族"
+                  width="100">
                 </el-table-column>
                 <el-table-column
-                  prop="grade"
-                  label="年级"
-                  width="150">
+                  prop="household"
+                  label="户口性质"
+                  width="100">
                 </el-table-column>
+                <el-table-column
+                  prop="political"
+                  label="政治面貌"
+                  width="100">
+                </el-table-column>
+                <el-table-column
+                  prop="dormitory"
+                  label="寝室号"
+                  width="100">
+                </el-table-column>
+                <el-table-column
+                  prop="loans"
+                  label="助学贷款情况"
+                  width="100">
+                </el-table-column>
+
+                <el-table-column
+                  prop="difficulties"
+                  label="家庭经济困难等级"
+                  width="100">
+                </el-table-column>
+
                 <el-table-column
                   prop="s_name"
                   label="姓名"
@@ -292,7 +395,13 @@
           num:'',
           psd:'12345678',
           sex:'男',
-          id:''
+          id:'',
+          national:"",
+          household:"",
+          political:"",
+          dormitory:"",
+          difficulties:"",
+          loans:""
         },
         a_url:'http://127.0.0.1/nefu/Admin/',
         c_url:'http://127.0.0.1/nefu/Common/',
@@ -416,7 +525,6 @@
         },
         handleSelectionChange(val) {
           this.multipleSelection = val;
-          console.log(val);
         },
         onSubmit() {
           if(this.grade=='' || this.selectclass==''||this.form.num==''||this.form.name==''){
@@ -436,7 +544,13 @@
               cid:this.selectclass,
               grade:this.grade.getFullYear(),
               college_id:this.selectcollege,
-              sex:this.form.sex
+              sex:this.form.sex,
+              national:this.form.national,
+              household:this.form.household,
+              political:this.form.political,
+              dormitory:this.form.dormitory,
+              difficulties:this.form.difficulties,
+              loans:this.form.loans
             }})
             .then((res)=>{
 
