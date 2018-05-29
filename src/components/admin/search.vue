@@ -135,7 +135,7 @@
                   width="250px">
                 </el-table-column>
                 <el-table-column
-                  prop="get_time"
+                  prop="add_time"
                   label="获奖时间"
                   width="250px">
                 </el-table-column>
