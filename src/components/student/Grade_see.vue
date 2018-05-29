@@ -46,7 +46,7 @@
         </div>
         
         <el-table
-                id="classall"
+
             :data="tableData3"
             height="260"
             v-show="isMyTable"
@@ -159,6 +159,7 @@
 
 
         <el-table
+                id="classall"
         :data="tableData"
         class="table"
         v-show="isTable"
