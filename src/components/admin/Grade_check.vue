@@ -494,13 +494,6 @@
       <el-col :span="2"><div class="filter"></div></el-col>
     </el-row>
 
-
-    <div class="toexcel" v-if="show">
-
-    </div>
-
-
-
   </div>
 </template>
 <script>

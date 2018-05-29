@@ -174,7 +174,10 @@ export default {
           Axios.get(this.c_url+'get_all_class')
             .then((res)=>{
             this.classlist = res.data;
-           
+
+                this.classlistshow =this.classlist.slice(0,9);
+                this.classlistlen =Number(this.classlist.length);
+
           });
       },
       //分页
@@ -200,6 +203,8 @@ export default {
               }})
                 .then((res)=>{
                   this.allClass();
+
+
                 });
             })
             .catch(_ => {});
