@@ -557,6 +557,7 @@ export default {
           i_select:'',//标志位加分
           i_downSelect:'',//标志位减分
           i_stu:true, //是否发送请求的标志位
+          i_safeSelect:'',//文体标志位
          // i_cum:[],  //建立一个数组储存id
           getProfissionUrl:'http://127.0.0.1/nefu/Common/get_profession',
           getClassUrl:'http://127.0.0.1/nefu/Common/get_class_by_pid_grade',
@@ -1429,7 +1430,8 @@ export default {
                     if(this.tableData2[i].content.trim()==res.data[j].d_content.trim()){
                       this.tableData2[i].reason=res.data[j].d_why;
                       this.tableData2[i].grade=res.data[j].d_self;
-                        if(i_downSelect==2){
+                      this.tableData2[i].i_downSelect=res.data[j].d_sta;
+                        if(this.tableData2[i].i_downSelect==2){
                             this.tableData2[i].short=false;
                         }else {
                             this.tableData2[i].short = true;
@@ -1591,7 +1593,13 @@ export default {
                 this.table[i].remark=res.data[i].w_type;
                 this.table[i].mark=res.data[i].w_self;
                 this.table[i].imi=res.data[i].w_id;
-                    this.table[i].safe=true;
+                this.table[i].i_safeSelect=res.data[i].w_sta;
+                if(this.table[i].i_safeSelect==2){
+                   this.table[i].safe=false;
+                }else{
+                   this.table[i].safe=true;
+                }
+                   
                 this.count++;
                 
                 }
@@ -1663,7 +1671,7 @@ export default {
                  num1.s_num=this.i_num;
                  num1.check=row.check;
                  num1.person=row.person;
-                 obj.reason=row.reason;
+                 num1.reason=row.reason;
                  this.i_stu=true;
              }
              if(this.i_stu==true){
@@ -1672,6 +1680,7 @@ export default {
                  }).then((res)=>{
                      alert('保存成功');
                      //this.i_downSelect=2;
+                     row.i_downSelect=2;
                      row.short=false;
                      console.log(res);
                  });
@@ -1687,12 +1696,13 @@ export default {
              num2.w_who=row.person;
              num2.w_cfm=row.check;
              num2.imi=row.imi;
+             num2.reason=row.affair;
              Axios.get(this.checkUpdate,{params:{pim:num2}
 
              }).then((res)=>{
                  alert('保存成功');
-                 // this.i_wtselect=2;
-                 // row.safe=false;
+                 row.i_safeSelect=2;
+                 row.safe=false;
                  console.log(res);
              });
        }
