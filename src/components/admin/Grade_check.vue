@@ -135,10 +135,17 @@
                 </span>
             </template>   
                 </el-table-column>
-              
+                  <el-table-column
+                          label="保存加分"
+                          prop="add"
+                          width="80">
+                      <template scope="scope">
+                          <el-button @click="handleClick(scope.row)" type="text" size="small" v-show="scope.row.add">保存加分</el-button>
+                      </template>
+                  </el-table-column>
             </el-table> 
             <br>
-            <el-button type="primary" v-show="safe" @click="getSafe">保存加分</el-button>
+            <!--<el-button type="primary" v-show="safe" @click="getSafe">保存加分</el-button>-->
             <br>
             <el-table
                 :data="tableData2"
@@ -191,10 +198,17 @@
                 </span>
             </template>    
                 </el-table-column>
-              
+                <el-table-column
+                        label="保存减分"
+                        prop="short"
+                        width="80">
+                    <template scope="scope">
+                        <el-button @click="shortClick(scope.row)" type="text" size="small" v-show="scope.row.short">保存减分</el-button>
+                    </template>
+                </el-table-column>
             </el-table>
             <br> 
-              <el-button type="primary" v-show="safe" @click="getDownSafe">保存减分</el-button>
+              <!--<el-button type="primary" v-show="safe" @click="getDownSafe">保存减分</el-button>-->
               </div>
 
               <div class="block">
@@ -429,7 +443,14 @@
                               </span>
                             </template>  
                         </el-table-column>
-                        
+                    <el-table-column
+                            label="保存"
+                            prop="safe"
+                            width="80">
+                        <template scope="scope">
+                            <el-button @click="safeClick(scope.row)" type="text" size="small" v-show="scope.row.safe">保存</el-button>
+                        </template>
+                    </el-table-column>
                     </el-table>
               </div>
               <div class="block">
@@ -554,258 +575,342 @@ export default {
           reason:'',
           grade:'',
           check:'',
-          person:''
-        }, {
-         content:'敢于同不良行为作斗争，凭相关有效证明每次加10-20分',
-          reason:'',
-           grade:'',
-          check:'',
-          person:''
-        }, {
-         content:'捐献造血干细胞者，凭相关有效证明在捐献所在学期一次性加15分',
-          reason:'',
-           grade:'',
-          check:'',
-          person:''
-        }, {
-          content:'无偿献血者，凭相关有效证明在献血所在学期一次性加5分',
-          reason:'',
-           grade:'',
-          check:'',
-          person:''
-          
-        }, {
-          content:'好人好事在社会上影响较大者，受到省级以上（含省级）部门书面表扬，或在国家级主流媒体给予充分报道加5分 ',
-          reason:'',
-           grade:'',
-          check:'',
-          person:''
-         
-        }, {
-          content:'主动维护社会（校园）公共秩序，举报、揭发、劝阻违纪现象（行为）者，能够查证核实，每次加5分',
-          reason:'',
-           grade:'',
-          check:'',
-          person:''
-         
-        }, {
-          content:'经常参加义工（不含因德育学分重修参加的义工）、志愿者活动等公益活动，每次加1分。受到省级以上部门（含省级）书面表扬，或在国家级主流媒体给予充分报道加8——10分',
-          reason:'',
-           grade:'',
-          check:'',
-          person:''
-         
-        },{
-          content:'积极参加义务支教活动，较好地完成相应的责任和义务，每次加5分',
-          reason:'',
-           grade:'',
-          check:'',
-          person:''
-        },{
-          content:'参加爱心捐助，助人为乐，每次加1分',
-          reason:'',
-           grade:'',
-          check:'',
-          person:''
-        },{
-          content:'自觉维护社会、校园安全稳定，加1分；文明使用互联网，遵守互联网“七条底线”，做文明网民，加1分',
-          reason:'',
-           grade:'',
-          check:'',
-          person:''
-        },{
-          content:'爱护公共财物，保护花草树木，节约水、电、粮食，自觉维护校园环境卫生，加1分',
-          reason:'',
-           grade:'',
-          check:'',
-          person:''
-        },{
-          content:'养成良好的卫生习惯，维护校园公共卫生，保持宿舍干净整洁，宿舍人际关系和谐，加1分',
-          reason:'',
-           grade:'',
-          check:'',
-          person:''
-        },{
-          content:'具有拾金不昧等产生积极影响的良好行为表现者，加1——3分',
-          reason:'',
-           grade:'',
-          check:'',
-          person:''
-        },{
-          content:'取得各类各级（以德育类为基础的）荣誉称号和有关奖励者（与专业技能相关的除外），获奖学生可以在该学期内凭奖励证书和有关证明申请加分：取得国家级荣誉称号和国家奖学金的，加15分；取得省级荣誉称号的，加10分；取得校级荣誉称号和奖励的（三好学生标兵、三好学生、优秀毕业生、优秀学生干部、东林励志之星、“五四”青年奖章、模范团干部、优秀团员等），每次加6分',
-          reason:'',
-           grade:'',
-          check:'',
-          person:''
-        },{
-          content:'在学院或学校开展的德育工作中表现突出，院级点名表扬加2分，院级通报表扬加3分；校级点名表扬加3分，校级通报表扬加5分',
-          reason:'',
-           grade:'',
-          check:'',
-          person:''
-        },{
-          content:'获得校级优秀集体（含先进班集体、优秀团支部、优秀寝室等），成员按参加贡献程度加1——5分',
-          reason:'',
-           grade:'',
-          check:'',
-          person:''
-        },{
-          content:'被评为优秀学生分会、五四红旗团委、校级以上（含校级）优秀学生社团组织等优秀集体的成员按参与贡献程度加2——5分',
-          reason:'',
-           grade:'',
-          check:'',
-          person:''
-        },{
-          content:'严格遵守校规校级，学期内未受到校院点名批评、通报批评以及未受到任何处分者，每学期加5分',
-          reason:'',
-           grade:'',
-          check:'',
-          person:''
-        },{
-          content:'每学期无迟到、早退、旷课者，上课率100%，加3分',
-          reason:'',
-           grade:'',
-          check:'',
-          person:''
-        },{
-          content:'按要求参加学院、学校组织的专题教育活动、讲座、报告，每次加1分',
-          reason:'',
-           grade:'',
-          check:'',
-          person:''
-        }],
-        tableData2:[{
-          content:'在学校组织的各种政治学习、党团组织生活和其他活动中无故缺席一次减3分；迟到、早退一次减2分；事假累计三次减1分',
-          reason:'',
-           grade:'',
-          check:'',
-          person:''
-        },{
-          content:'在网络等媒体、公开场合发表不当言论，视情节轻重减5——10分',
-          reason:'',
-           grade:'',
-          check:'',
-          person:''
-        },{
-          content:'宣扬不良思想，参与违规违纪活动，尚未造成严重后果减5分',
-          reason:'',
-           grade:'',
-          check:'',
-          person:''
-        },{
-          content:'凡违反校规校级，每次学院点名批评减2分，每次学院通报批评减3分；每次学校点名批评减3分，每次学校通报批评减5分，警告减20分，严重警告减30分',
-          reason:'',
-           grade:'',
-          check:'',
-          person:''
-        },{
-          content:'离校未履行请假手续，没有造成不良后果减5分；请假回校后未履行销假手续减1分',
-          reason:'',
-           grade:'',
-          check:'',
-          person:''
-        },{
-          content:'节假日、寒暑假期满未按时返校，因故请假但不能提供有效证明减3分，未请假减6分；不按规定办理报到、注册手续，减10分',
-          reason:'',
-           grade:'',
-          check:'',
-          person:''
-        },{
-          content:'不遵守作息时间，无正当理由晚归减5分',
-          reason:'',
-           grade:'',
-          check:'',
-          person:''
-        },{
-          content:'不遵守校园公共场所秩序，造成不良影响视情节减3——5分',
-          reason:'',
-           grade:'',
-          check:'',
-          person:''
-        },{
-          content:'有意损坏公物但情节轻微、尚未达到处分减5分',
-          reason:'',
-           grade:'',
-          check:'',
-          person:''
-        },{
-          content:'因个人床铺卫生不合格而影响寝室卫生减2——3分。卫生不合格的寝室，寝室成员每人减1分，寝室长减2分，值日生减2分',
-          reason:'',
-           grade:'',
-          check:'',
-          person:''
-        },{
-          content:'无故不按时交纳学费，每次减10分；恶意欠交学费，每次减20分',
-          reason:'',
-           grade:'',
-          check:'',
-          person:''
-        },{
-          content:'作为学生当事人不能妥善处置相关事件，引发关联人员干扰或影响学校的正常教学、办公或日常校园秩序，减30分',
-          reason:'',
-           grade:'',
-          check:'',
-          person:''
-        },{
-          content:'其他违反校规校纪情况，视情节酌情减分',
-          reason:'',
-           grade:'',
-          check:'',
-          person:''
-        },{
-          content:'上课迟到早退一次减3分，无故旷课一次减5分',
-          reason:'',
-           grade:'',
-          check:'',
-          person:''
-        },{
-          content:'扰乱课堂秩序（包括大声喧哗、玩手机、吃食物等影响别人听课的行为），一次减5分',
-          reason:'',
-           grade:'',
-          check:'',
-          person:''
-        },{
-          content:'对于学校组织的集体活动（包括文体、劳动、公益、班会、团日等），无故不到或早退者，每次减3分。不按要求参与学校组织的重大活动，每次减5分',
-          reason:'',
-           grade:'',
-          check:'',
-          person:''
-        },{
-          content:'在各项活动中不听从命令、不服从指挥者一次减3分',
-          reason:'',
-           grade:'',
-          check:'',
-          person:''
-        },{
-          content:'校院两级组织机构学生干部，工作严重失职、对突发事件或恶性违法违纪案件不报告、不及时处理、不制止或不补救的减20分；在事故中负领导、组织责任减30分',
-          reason:'',
-           grade:'',
-          check:'',
-          person:''
-        },{
-          content:'在校内外给学校、学院带来不良影响或做出有损大学生形象的不文明、不道德行为，视情况减5——10分',
-          reason:'',
-           grade:'',
-          check:'',
-          person:''
-        },{
-          content:'乱说、乱写污言秽语或不尊重教职工和同学减5分',
-          reason:'',
-           grade:'',
-          check:'',
-          person:''
-        },{
-          content:'不能自觉维护校园清洁环境，在宿舍或教室墙壁乱写乱画或致墙面污损，减3分',
-          reason:'',
-           grade:'',
-          check:'',
-          person:''
-        },{
-          content:'自私自利，妨碍他人正常学习、生活或给他人带来一定影响，视情节减3——5分',
-          reason:'',
-           grade:'',
-          check:'',
-          person:''
+              person:'',
+              add:false,
+              i_select:1
+          }, {
+              content:'敢于同不良行为作斗争，凭相关有效证明每次加10-20分',
+              reason:'',
+              grade:'',
+              check:'',
+              person:'',
+              add:false,
+              i_select:1
+          }, {
+              content:'捐献造血干细胞者，凭相关有效证明在捐献所在学期一次性加15分',
+              reason:'',
+              grade:'',
+              check:'',
+              person:'',
+              add:false,
+              i_select:1
+          }, {
+              content:'无偿献血者，凭相关有效证明在献血所在学期一次性加5分',
+              reason:'',
+              grade:'',
+              check:'',
+              person:'',
+              add:false,
+              i_select:1
+
+          }, {
+              content:'好人好事在社会上影响较大者，受到省级以上（含省级）部门书面表扬，或在国家级主流媒体给予充分报道加5分 ',
+              reason:'',
+              grade:'',
+              check:'',
+              person:'',
+              add:false,
+              i_select:1
+
+          }, {
+              content:'主动维护社会（校园）公共秩序，举报、揭发、劝阻违纪现象（行为）者，能够查证核实，每次加5分',
+              reason:'',
+              grade:'',
+              check:'',
+              person:'',
+              add:false,
+              i_select:1
+
+          }, {
+              content:'经常参加义工（不含因德育学分重修参加的义工）、志愿者活动等公益活动，每次加1分。受到省级以上部门（含省级）书面表扬，或在国家级主流媒体给予充分报道加8——10分',
+              reason:'',
+              grade:'',
+              check:'',
+              person:'',
+              add:false,
+              i_select:1
+
+          },{
+              content:'积极参加义务支教活动，较好地完成相应的责任和义务，每次加5分',
+              reason:'',
+              grade:'',
+              check:'',
+              person:'',
+              add:false,
+              i_select:1
+          },{
+              content:'参加爱心捐助，助人为乐，每次加1分',
+              reason:'',
+              grade:'',
+              check:'',
+              person:'',
+              add:false,
+              i_select:1
+          },{
+              content:'自觉维护社会、校园安全稳定，加1分；文明使用互联网，遵守互联网“七条底线”，做文明网民，加1分',
+              reason:'',
+              grade:'',
+              check:'',
+              person:'',
+              add:false,
+              i_select:1
+          },{
+              content:'爱护公共财物，保护花草树木，节约水、电、粮食，自觉维护校园环境卫生，加1分',
+              reason:'',
+              grade:'',
+              check:'',
+              person:'',
+              add:false,
+              i_select:1
+          },{
+              content:'养成良好的卫生习惯，维护校园公共卫生，保持宿舍干净整洁，宿舍人际关系和谐，加1分',
+              reason:'',
+              grade:'',
+              check:'',
+              person:'',
+              add:false,
+              i_select:1
+          },{
+              content:'具有拾金不昧等产生积极影响的良好行为表现者，加1——3分',
+              reason:'',
+              grade:'',
+              check:'',
+              person:'',
+              add:false,
+              i_select:1
+          },{
+              content:'取得各类各级（以德育类为基础的）荣誉称号和有关奖励者（与专业技能相关的除外），获奖学生可以在该学期内凭奖励证书和有关证明申请加分：取得国家级荣誉称号和国家奖学金的，加15分；取得省级荣誉称号的，加10分；取得校级荣誉称号和奖励的（三好学生标兵、三好学生、优秀毕业生、优秀学生干部、东林励志之星、“五四”青年奖章、模范团干部、优秀团员等），每次加6分',
+              reason:'',
+              grade:'',
+              check:'',
+              person:'',
+              add:false,
+              i_select:1
+          },{
+              content:'在学院或学校开展的德育工作中表现突出，院级点名表扬加2分，院级通报表扬加3分；校级点名表扬加3分，校级通报表扬加5分',
+              reason:'',
+              grade:'',
+              check:'',
+              person:'',
+              add:false,
+              i_select:1
+          },{
+              content:'获得校级优秀集体（含先进班集体、优秀团支部、优秀寝室等），成员按参加贡献程度加1——5分',
+              reason:'',
+              grade:'',
+              check:'',
+              person:'',
+              add:false,
+              i_select:1
+          },{
+              content:'被评为优秀学生分会、五四红旗团委、校级以上（含校级）优秀学生社团组织等优秀集体的成员按参与贡献程度加2——5分',
+              reason:'',
+              grade:'',
+              check:'',
+              person:'',
+              add:false,
+              i_select:1
+          },{
+              content:'严格遵守校规校级，学期内未受到校院点名批评、通报批评以及未受到任何处分者，每学期加5分',
+              reason:'',
+              grade:'',
+              check:'',
+              person:'',
+              add:false,
+              i_select:1
+          },{
+              content:'每学期无迟到、早退、旷课者，上课率100%，加3分',
+              reason:'',
+              grade:'',
+              check:'',
+              person:'',
+              add:false,
+              i_select:1
+          },{
+              content:'按要求参加学院、学校组织的专题教育活动、讲座、报告，每次加1分',
+              reason:'',
+              grade:'',
+              check:'',
+              person:'',
+              add:false,
+              i_select:1
+          }],
+            tableData2:[{
+                content:'在学校组织的各种政治学习、党团组织生活和其他活动中无故缺席一次减3分；迟到、早退一次减2分；事假累计三次减1分',
+                reason:'',
+                grade:'',
+                check:'',
+                person:'',
+                short:false,
+                i_downSelect:1
+            },{
+                content:'在网络等媒体、公开场合发表不当言论，视情节轻重减5——10分',
+                reason:'',
+                grade:'',
+                check:'',
+                person:'',
+                short:false,
+                i_downSelect:1
+            },{
+                content:'宣扬不良思想，参与违规违纪活动，尚未造成严重后果减5分',
+                reason:'',
+                grade:'',
+                check:'',
+                person:'',
+                short:false,
+                i_downSelect:1
+            },{
+                content:'凡违反校规校级，每次学院点名批评减2分，每次学院通报批评减3分；每次学校点名批评减3分，每次学校通报批评减5分，警告减20分，严重警告减30分',
+                reason:'',
+                grade:'',
+                check:'',
+                person:'',
+                short:false,
+                i_downSelect:1
+            },{
+                content:'离校未履行请假手续，没有造成不良后果减5分；请假回校后未履行销假手续减1分',
+                reason:'',
+                grade:'',
+                check:'',
+                person:'',
+                short:false,
+                i_downSelect:1
+            },{
+                content:'节假日、寒暑假期满未按时返校，因故请假但不能提供有效证明减3分，未请假减6分；不按规定办理报到、注册手续，减10分',
+                reason:'',
+                grade:'',
+                check:'',
+                person:'',
+                short:false,
+                i_downSelect:1
+            },{
+                content:'不遵守作息时间，无正当理由晚归减5分',
+                reason:'',
+                grade:'',
+                check:'',
+                person:'',
+                short:false,
+                i_downSelect:1
+            },{
+                content:'不遵守校园公共场所秩序，造成不良影响视情节减3——5分',
+                reason:'',
+                grade:'',
+                check:'',
+                person:'',
+                short:false,
+                i_downSelect:1
+            },{
+                content:'有意损坏公物但情节轻微、尚未达到处分减5分',
+                reason:'',
+                grade:'',
+                check:'',
+                person:'',
+                short:false,
+                i_downSelect:1
+            },{
+                content:'因个人床铺卫生不合格而影响寝室卫生减2——3分。卫生不合格的寝室，寝室成员每人减1分，寝室长减2分，值日生减2分',
+                reason:'',
+                grade:'',
+                check:'',
+                person:'',
+                short:false,
+                i_downSelect:1
+            },{
+                content:'无故不按时交纳学费，每次减10分；恶意欠交学费，每次减20分',
+                reason:'',
+                grade:'',
+                check:'',
+                person:'',
+                short:false,
+                i_downSelect:1
+            },{
+                content:'作为学生当事人不能妥善处置相关事件，引发关联人员干扰或影响学校的正常教学、办公或日常校园秩序，减30分',
+                reason:'',
+                grade:'',
+                check:'',
+                person:'',
+                short:false,
+                i_downSelect:1
+            },{
+                content:'其他违反校规校纪情况，视情节酌情减分',
+                reason:'',
+                grade:'',
+                check:'',
+                person:'',
+                short:false,
+                i_downSelect:1
+            },{
+                content:'上课迟到早退一次减3分，无故旷课一次减5分',
+                reason:'',
+                grade:'',
+                check:'',
+                person:'',
+                short:false,
+                i_downSelect:1
+            },{
+                content:'扰乱课堂秩序（包括大声喧哗、玩手机、吃食物等影响别人听课的行为），一次减5分',
+                reason:'',
+                grade:'',
+                check:'',
+                person:'',
+                short:false,
+                i_downSelect:1
+            },{
+                content:'对于学校组织的集体活动（包括文体、劳动、公益、班会、团日等），无故不到或早退者，每次减3分。不按要求参与学校组织的重大活动，每次减5分',
+                reason:'',
+                grade:'',
+                check:'',
+                person:'',
+                short:false,
+                i_downSelect:1
+            },{
+                content:'在各项活动中不听从命令、不服从指挥者一次减3分',
+                reason:'',
+                grade:'',
+                check:'',
+                person:'',
+                short:false,
+                i_downSelect:1
+            },{
+                content:'校院两级组织机构学生干部，工作严重失职、对突发事件或恶性违法违纪案件不报告、不及时处理、不制止或不补救的减20分；在事故中负领导、组织责任减30分',
+                reason:'',
+                grade:'',
+                check:'',
+                person:'',
+                short:false,
+                i_downSelect:1
+            },{
+                content:'在校内外给学校、学院带来不良影响或做出有损大学生形象的不文明、不道德行为，视情况减5——10分',
+                reason:'',
+                grade:'',
+                check:'',
+                person:'',
+                short:false,
+                i_downSelect:1
+            },{
+                content:'乱说、乱写污言秽语或不尊重教职工和同学减5分',
+                reason:'',
+                grade:'',
+                check:'',
+                person:'',
+                short:false,
+                i_downSelect:1
+            },{
+                content:'不能自觉维护校园清洁环境，在宿舍或教室墙壁乱写乱画或致墙面污损，减3分',
+                reason:'',
+                grade:'',
+                check:'',
+                person:'',
+                short:false,
+                i_downSelect:1
+            },{
+                content:'自私自利，妨碍他人正常学习、生活或给他人带来一定影响，视情节减3——5分',
+                reason:'',
+                grade:'',
+                check:'',
+                person:'',
+                short:false,
+                i_downSelect:1
         }],
         tableData4: [{
          content:'政治上要求进步，以实际行动积极向党组织靠拢，加1分；获得党校培训《结业证书》并积极参加相关活动者，加2分 ',
@@ -1240,8 +1345,7 @@ export default {
                 this.isShow=false;
                 this.isMyTable=true;
               
-                  console.log(res.data);
-             for(var i=0;i<this.tableData4.length;i++){                   
+             for(var i=0;i<this.tableData4.length;i++){
                      for(var j=0;j<res.data.length;j++){                  
                     if(this.tableData4[i].content.trim()==res.data[j].d_content.trim()){
                      //console.log(res.data[j].d_content);
@@ -1283,7 +1387,7 @@ export default {
               if(res.data[0].score){
                  this.isTable=false;
                  this.isShow=true;  
-                 this.safe=false;  
+                 this.safe=false;
                   this.tableData=res.data;
                for(var i=0;i<res.data.length;i++){
                 this.tableData[i].class=res.data[i].class_id;
@@ -1299,7 +1403,7 @@ export default {
                 this.isTable=true;
                 this.safe=true; 
                 this.i_num=res.data[0].s_num;              
-              this.i_select=res.data[0].d_sta;
+//              this.i_select=res.data[0].d_sta;
                 //this.i_downSelect=res.data[0].d_sta;
                  console.log(this.i_select);
              for(var i=0;i<this.tableData3.length;i++){                   
@@ -1307,9 +1411,13 @@ export default {
                     if(this.tableData3[i].content.trim()==res.data[j].d_content.trim()){
                      //console.log(res.data[j].d_content);
                       this.tableData3[i].reason=res.data[j].d_why;
-                      console.log(111);
                       this.tableData3[i].grade=res.data[j].d_self;
-                      
+                        this.tableData3[i].i_select=res.data[j].d_sta;
+                        if(this.tableData3[i].i_select==2){
+                            this.tableData3[i].add=false;
+                        }else{
+                            this.tableData3[i].add=true;
+                        }
                       //后端要把审核分和审核人拼接到数组中，用JSON传过来
                     }else{
                       // console.log(res.data[j].d_content);
@@ -1321,7 +1429,11 @@ export default {
                     if(this.tableData2[i].content.trim()==res.data[j].d_content.trim()){
                       this.tableData2[i].reason=res.data[j].d_why;
                       this.tableData2[i].grade=res.data[j].d_self;
-                        
+                        if(i_downSelect==2){
+                            this.tableData2[i].short=false;
+                        }else {
+                            this.tableData2[i].short = true;
+                        }
                       //后端要把审核分和审核人拼接到数组中，用JSON传过来
                     }
                   }
@@ -1354,7 +1466,6 @@ export default {
              }
           }        
               var bim=num;
-              console.log(bim);
             Axios.get(this.checkAdd,{params:{pim:bim}
             
             }).then((res)=>{
@@ -1418,7 +1529,9 @@ export default {
                 this.table2[i].class=res.data[i].class_name;
                 this.table2[i].name=res.data[i].s_name;
                 this.table2[i].id=res.data[i].s_num;
-                this.table2[i].num=res.data[i].score;}
+                this.table2[i].num=res.data[i].score;
+
+               }
                 var x = [];
                 x = this.table2;
                 var y = {pid:'专业',class_name:'班级',s_num:'学号',s_name:'姓名',d_num:'总分'}
@@ -1478,6 +1591,7 @@ export default {
                 this.table[i].remark=res.data[i].w_type;
                 this.table[i].mark=res.data[i].w_self;
                 this.table[i].imi=res.data[i].w_id;
+                    this.table[i].safe=true;
                 this.count++;
                 
                 }
@@ -1514,6 +1628,73 @@ export default {
               alert('保存成功');
              console.log(res);
             });
+       },
+         handleClick(row){
+             console.log(row);
+             var obj=new Object();
+             obj.get_term=this.valueT;
+             obj.month=this.value;
+             obj.d_tag=1;
+             obj.s_num=this.i_num;
+             obj.check=row.check;
+             obj.person=row.person;
+             obj.reason=row.reason;
+             Axios.get(this.checkAdd,{params:{pim:obj}
+
+             }).then((res)=>{
+                 alert('保存成功');
+                 row.i_select=2;
+                 row.add=false;
+                 // this.i_select=2;
+                 //console.log(i_select);
+             });
+
+         },
+         shortClick(row){
+             var num1=new Object;
+             if(row.check>=0){
+                 alert('请输入小于0的数');
+                 row.check='';
+                 this.i_stu=false;
+             }else{
+                 num1.get_term=this.valueT;
+                 num1.month=this.value;
+                 num1.d_tag=2;
+                 num1.s_num=this.i_num;
+                 num1.check=row.check;
+                 num1.person=row.person;
+                 obj.reason=row.reason;
+                 this.i_stu=true;
+             }
+             if(this.i_stu==true){
+                 Axios.get(this.checkShort,{params:{pim:num1}
+
+                 }).then((res)=>{
+                     alert('保存成功');
+                     //this.i_downSelect=2;
+                     row.short=false;
+                     console.log(res);
+                 });
+             }
+         },
+         safeClick(row){
+             console.log(row);
+             var num2=new Object();
+             num2.get_term=this.valueT;
+             num2.month=this.value;
+             num2.d_tag=1;
+             num2.s_num=this.$cookie.get('s_num');
+             num2.w_who=row.person;
+             num2.w_cfm=row.check;
+             num2.imi=row.imi;
+             Axios.get(this.checkUpdate,{params:{pim:num2}
+
+             }).then((res)=>{
+                 alert('保存成功');
+                 // this.i_wtselect=2;
+                 // row.safe=false;
+                 console.log(res);
+             });
        }
      }
 }
